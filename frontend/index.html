@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎨 Collaborative Whiteboard</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <!-- Join Modal -->
+    <div id="join-modal" class="modal-overlay">
+        <div class="modal">
+            <h1>🎨 Collaborative Whiteboard</h1>
+            <p>Draw together in real-time with anyone on the same network!</p>
+            <input type="text" id="username-input" placeholder="Enter your name..." maxlength="20" autofocus>
+            <button id="join-btn" onclick="joinBoard()">Join Board →</button>
+        </div>
+    </div>
+
+    <!-- Main App -->
+    <div id="app" class="hidden">
+        <!-- Toolbar -->
+        <div id="toolbar">
+            <div class="toolbar-section">
+                <span class="toolbar-label">TOOLS</span>
+                <button class="tool-btn active" id="tool-pencil" onclick="setTool('pencil')" title="Pencil (P)">
+                    ✏️ Pencil
+                </button>
+                <button class="tool-btn" id="tool-line" onclick="setTool('line')" title="Line (L)">
+                    ╱ Line
+                </button>
+                <button class="tool-btn" id="tool-rect" onclick="setTool('rect')" title="Rectangle (R)">
+                    ▭ Rect
+                </button>
+                <button class="tool-btn" id="tool-circle" onclick="setTool('circle')" title="Circle (C)">
+                    ○ Circle
+                </button>
+                <button class="tool-btn" id="tool-eraser" onclick="setTool('eraser')" title="Eraser (E)">
+                    🧹 Eraser
+                </button>
+            </div>
+
+            <div class="toolbar-section">
+                <span class="toolbar-label">COLOR</span>
+                <div class="color-swatches">
+                    <div class="swatch active" style="background:#000000" onclick="setColor('#000000')"></div>
+                    <div class="swatch" style="background:#ef4444" onclick="setColor('#ef4444')"></div>
+                    <div class="swatch" style="background:#f97316" onclick="setColor('#f97316')"></div>
+                    <div class="swatch" style="background:#eab308" onclick="setColor('#eab308')"></div>
+                    <div class="swatch" style="background:#22c55e" onclick="setColor('#22c55e')"></div>
+                    <div class="swatch" style="background:#3b82f6" onclick="setColor('#3b82f6')"></div>
+                    <div class="swatch" style="background:#8b5cf6" onclick="setColor('#8b5cf6')"></div>
+                    <div class="swatch" style="background:#ec4899" onclick="setColor('#ec4899')"></div>
+                    <div class="swatch" style="background:#ffffff" onclick="setColor('#ffffff')" style="border: 2px solid #ccc;"></div>
+                </div>
+                <input type="color" id="color-picker" value="#000000" onchange="setColor(this.value)" title="Custom Color">
+            </div>
+
+            <div class="toolbar-section">
+                <span class="toolbar-label">SIZE</span>
+                <input type="range" id="brush-size" min="1" max="40" value="4" oninput="setBrushSize(this.value)">
+                <span id="size-display">4px</span>
+            </div>
+
+            <div class="toolbar-section">
+                <button class="action-btn danger" onclick="clearBoard()" title="Clear all drawings">
+                    🗑️ Clear All
+                </button>
+            </div>
+
+            <div class="toolbar-section status-section">
+                <div id="connection-status" class="status disconnected">⚪ Connecting...</div>
+                <div id="user-count">👥 0 users</div>
+                <div id="username-display"></div>
+            </div>
+        </div>
+
+        <!-- Canvas Area -->
+        <div id="canvas-container">
+            <canvas id="whiteboard"></canvas>
+            <canvas id="preview-canvas"></canvas>
+        </div>
+
+        <!-- Notifications -->
+        <div id="notifications"></div>
+    </div>
+
+    <script src="/static/js/whiteboard.js"></script>
+</body>
+</html>
